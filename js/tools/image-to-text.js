@@ -13,7 +13,7 @@ export function render(parent) {
     if (worker) return worker;
     progress.style.display = 'block';
     progress.textContent = 'Loading Tesseract.js … (~4MB)';
-    const { createWorker } = await import('https://unpkg.com/tesseract.js@6/dist/tesseract.esm.min.js');
+    const { default: createWorker } = await import('https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.esm.min.js');
     progress.textContent = 'Initializing OCR engine …';
     worker = await createWorker('eng', 1, {
       logger: m => { if (m.status === 'recognizing text') progress.textContent = `OCR: ${Math.round(m.progress * 100)}%`; },
