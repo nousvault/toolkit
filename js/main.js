@@ -3,6 +3,52 @@ import { showToast } from './utils.js';
 // Controller state
 let currentModule = null;
 
+const THEME_STORAGE_KEY = 'toolkit-theme';
+
+function getPreferredTheme() {
+    try {
+        const saved = localStorage.getItem(THEME_STORAGE_KEY);
+        if (saved === 'light' || saved === 'dark') return saved;
+    } catch (_) {
+        // Ignore storage errors and fall back to system preference.
+    }
+
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+}
+
+function applyTheme(theme) {
+    const nextTheme = theme === 'light' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = nextTheme;
+
+    try {
+        localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+    } catch (_) {
+        // Ignore storage errors.
+    }
+
+    const toggle = document.getElementById('themeToggle');
+    const label = toggle?.querySelector('.theme-toggle-label');
+    if (toggle) {
+        toggle.setAttribute('aria-pressed', nextTheme === 'dark' ? 'true' : 'false');
+        toggle.setAttribute('aria-label', `Switch to ${nextTheme === 'dark' ? 'light' : 'dark'} mode`);
+    }
+    if (label) {
+        label.textContent = nextTheme === 'dark' ? 'Dark' : 'Light';
+    }
+}
+
+function setupThemeToggle() {
+    const toggle = document.getElementById('themeToggle');
+    if (!toggle) return;
+
+    toggle.addEventListener('click', () => {
+        const current = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+        applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    applyTheme(getPreferredTheme());
+}
+
 // Registry of tools and their module paths
 const toolsRegistry = {
     'dashboard': {
@@ -102,6 +148,8 @@ const toolsRegistry = {
  */
 async function initApp() {
     const navItems = document.querySelectorAll('.nav-item');
+
+    setupThemeToggle();
 
     // Set up navigation clicks
     navItems.forEach(item => {

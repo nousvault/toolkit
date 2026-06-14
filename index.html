@@ -166,8 +166,14 @@
         <main class="main-content">
             <header class="top-bar">
                 <h1 id="currentToolTitle">JSON Formatter</h1>
-                <div class="top-actions" id="topActions">
-                    <!-- Dynamic actions buttons for the current tool -->
+                <div class="top-actions">
+                    <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false">
+                        <span class="theme-toggle-track" aria-hidden="true">
+                            <span class="theme-toggle-thumb"></span>
+                        </span>
+                        <span class="theme-toggle-label">Dark</span>
+                    </button>
+                    <div id="topActions"></div>
                 </div>
             </header>
 
