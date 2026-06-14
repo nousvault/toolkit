@@ -1,24 +1,29 @@
 // notes.js — browser scratchpad, persisted to localStorage
-import { el, textarea, btn } from '../components/dom.js';
+import { el, btn, toast } from '../components/dom.js';
 
-const STORAGE_KEY = 'toolkit-notes';
+const KEY = 'toolkit-notes';
 
 export function render(parent) {
-  const inp = textarea({ placeholder: 'Write notes … auto-saved to localStorage', class: 'tool-input', rows: 14 });
-  inp.value = localStorage.getItem(STORAGE_KEY) || '';
+  parent.innerHTML = '';
+
+  const ta = el('textarea', { className: 'editor-textarea', placeholder: 'Write notes here... saved automatically to localStorage', spellcheck: false, rows: 15 });
+  ta.value = localStorage.getItem(KEY) || '';
 
   let saveTimer;
-  inp.addEventListener('input', () => {
+  ta.addEventListener('input', () => {
     clearTimeout(saveTimer);
-    saveTimer = setTimeout(() => localStorage.setItem(STORAGE_KEY, inp.value), 400);
+    saveTimer = setTimeout(() => {
+      localStorage.setItem(KEY, ta.value);
+      toast('Saved', 'success');
+    }, 500);
   });
 
-  const clearBtn = btn('Clear');
-  clearBtn.addEventListener('click', () => { inp.value = ''; localStorage.removeItem(STORAGE_KEY); });
+  document.getElementById('topActions').innerHTML = '';
+  const clearBtn = btn('Clear', 'btn-danger');
+  clearBtn.addEventListener('click', () => { ta.value = ''; localStorage.removeItem(KEY); toast('Cleared', 'success'); });
+  document.getElementById('topActions').appendChild(clearBtn);
 
-  parent.appendChild(el('div', {}, [
-    el('div', { class: 'tool-field', innerHTML: '<label>Notes</label>' }, [inp]),
-    el('div', { class: 'tool-controls' }, [clearBtn]),
-    el('p', { class: 'tool-empty', textContent: 'Saved to localStorage. Survives page reload, stays on this browser only.' }),
-  ]));
+  const editorCtr = el('div', { className: 'editor-container', style: 'flex:1' });
+  editorCtr.appendChild(ta);
+  parent.appendChild(editorCtr);
 }

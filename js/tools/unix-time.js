@@ -1,48 +1,47 @@
 // unix-time.js
-import { el, btn } from '../components/dom.js';
+import { el, btn, copy } from '../components/dom.js';
 
 export function render(parent) {
-  const tsInput = el('input', { type: 'text', placeholder: 'Unix timestamp (seconds) …', class: 'tool-input' });
-  const isoInput = el('input', { type: 'text', placeholder: 'ISO date (e.g. 2026-06-14T12:00:00Z) …', class: 'tool-input' });
-  const out = el('pre', { class: 'tool-output' });
+  parent.innerHTML = '';
 
   const now = Math.floor(Date.now() / 1000);
-  tsInput.value = String(now);
-  out.textContent = new Date(now * 1000).toISOString();
+  const tsInput = el('input', { type: 'text', value: String(now), placeholder: 'Unix timestamp (seconds)' });
+  const isoInput = el('input', { type: 'text', value: new Date(now * 1000).toISOString(), placeholder: 'ISO date' });
+  const out = el('div', { className: 'output-display', style: 'min-height:60px;font-size:1rem' });
 
   function tsToDate() {
     const v = Number(tsInput.value);
     if (!v) { out.textContent = 'Enter a numeric timestamp'; return; }
     const d = new Date(v > 9999999999 ? v : v * 1000);
-    out.textContent = d.toISOString() + '\n' + d.toString();
-    out.style.color = '';
+    out.textContent = `${d.toISOString()}\n${d.toString()}`;
+    isoInput.value = d.toISOString();
   }
 
   function dateToTs() {
     const d = new Date(isoInput.value);
-    if (isNaN(d)) { out.textContent = 'Invalid date'; return; }
-    out.textContent = `Unix (s): ${Math.floor(d / 1000)}\nUnix (ms): ${d.getTime()}`;
-    out.style.color = '';
+    if (isNaN(d)) { out.textContent = 'Invalid date format'; return; }
+    out.textContent = `Unix (seconds): ${Math.floor(d / 1000)}\nUnix (ms): ${d.getTime()}`;
+    tsInput.value = String(Math.floor(d / 1000));
   }
 
-  const toDateBtn = btn('Timestamp → Date', 'btn-primary');
-  const toTsBtn = btn('Date → Timestamp', 'btn-primary');
-  const nowBtn = btn('Now');
-  const copyBtn = btn('Copy');
+  tsInput.addEventListener('input', tsToDate);
+  isoInput.addEventListener('input', dateToTs);
 
-  toDateBtn.addEventListener('click', tsToDate);
-  toTsBtn.addEventListener('click', dateToTs);
-  nowBtn.addEventListener('click', () => { tsInput.value = String(Math.floor(Date.now()/1000)); tsToDate(); });
-  copyBtn.addEventListener('click', () => navigator.clipboard?.writeText(out.textContent));
+  const nowBtn = btn('Now', 'btn-secondary');
+  const copyBtn = btn('Copy', 'btn-secondary');
+  nowBtn.addEventListener('click', () => { const n = Math.floor(Date.now()/1000); tsInput.value = String(n); tsToDate(); });
+  copyBtn.addEventListener('click', () => copy(out.textContent));
 
-  parent.appendChild(el('div', {}, [
-    el('div', { class: 'tool-field', innerHTML: '<label>Unix Timestamp (seconds)</label>' }, [tsInput]),
-    el('div', { class: 'tool-controls' }, [toDateBtn, nowBtn]),
-    el('hr', { class: 'separator' }),
-    el('div', { class: 'tool-field', innerHTML: '<label>ISO Date</label>' }, [isoInput]),
-    el('div', { class: 'tool-controls' }, [toTsBtn]),
-    el('hr', { class: 'separator' }),
-    el('div', { class: 'tool-controls' }, [copyBtn]),
-    out,
-  ]));
+  document.getElementById('topActions').innerHTML = '';
+  document.getElementById('topActions').append(nowBtn, copyBtn);
+
+  // Layout: two input rows + output
+  parent.appendChild(el('div', { className: 'input-label', textContent: 'UNIX TIMESTAMP' }));
+  parent.appendChild(tsInput);
+  parent.appendChild(el('div', { style: 'margin-top:var(--spacing-md)', className: 'input-label', textContent: 'ISO DATE' }));
+  parent.appendChild(isoInput);
+  parent.appendChild(el('div', { style: 'margin-top:var(--spacing-md)', className: 'input-label', textContent: 'RESULT' }));
+  parent.appendChild(out);
+
+  tsToDate();
 }

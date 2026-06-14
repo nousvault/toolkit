@@ -1,32 +1,54 @@
 // diff-checker.js
-import { el, textarea, btn } from '../components/dom.js';
+import { el, btn, copy } from '../components/dom.js';
 
 export function render(parent) {
-  const left = textarea({ placeholder: 'Original text …', class: 'tool-input', rows: 8 });
-  const right = textarea({ placeholder: 'Modified text …', class: 'tool-input', rows: 8 });
-  const out = el('div', { class: 'tool-output diff-result' });
+  parent.innerHTML = '';
 
-  function diff() {
-    const a = left.value.split('\n'), b = right.value.split('\n');
-    const max = Math.max(a.length, b.length);
-    const frag = document.createDocumentFragment();
-    for (let i = 0; i < max; i++) {
-      const la = a[i] || '', lb = b[i] || '';
-      if (la === lb) { frag.appendChild(el('div', { class: 'diff-eq', textContent: '  ' + la })); continue; }
-      if (la) frag.appendChild(el('div', { class: 'diff-del', textContent: '- ' + la }));
-      if (lb) frag.appendChild(el('div', { class: 'diff-ins', textContent: '+ ' + lb }));
+  const orig = el('textarea', { className: 'editor-textarea', placeholder: 'Original text...', spellcheck: false });
+  const mod = el('textarea', { className: 'editor-textarea', placeholder: 'Modified text...', spellcheck: false });
+  const out = el('div', { className: 'output-display', style: 'max-height:400px;overflow:auto;flex:0 0 auto' });
+
+  function computeDiff() {
+    const oLines = orig.value.split('\n');
+    const mLines = mod.value.split('\n');
+    const maxLen = Math.max(oLines.length, mLines.length);
+    const result = [];
+    for (let i = 0; i < maxLen; i++) {
+      const ol = oLines[i] ?? '';
+      const ml = mLines[i] ?? '';
+      if (ol === ml) result.push(`<div class="diff-line"><span class="diff-line-number">${i + 1}</span><span class="diff-line-content">${ol}</span></div>`);
+      else {
+        if (ol) result.push(`<div class="diff-line removed"><span class="diff-line-number">${i + 1}</span><span class="diff-line-content">${ol}</span></div>`);
+        if (ml) result.push(`<div class="diff-line added"><span class="diff-line-number">${i + 1}</span><span class="diff-line-content">${ml}</span></div>`);
+      }
     }
-    out.innerHTML = ''; out.appendChild(frag);
+    out.innerHTML = result.join('');
   }
 
-  const diffBtn = btn('Compare', 'btn-primary');
-  diffBtn.addEventListener('click', diff);
+  const runBtn = btn('Compare', 'btn-primary');
+  runBtn.addEventListener('click', computeDiff);
 
-  parent.appendChild(el('div', {}, [
-    el('div', { class: 'tool-row' }, [el('div', {}, [left]), el('div', {}, [right])]),
-    el('div', { class: 'tool-controls' }, [diffBtn, btn('Copy')]),
-    out,
-  ]));
-  const copyBtn = parent.querySelector('.btn:not(.btn-primary)');
-  copyBtn?.addEventListener('click', () => navigator.clipboard?.writeText(out.textContent));
+  document.getElementById('topActions').innerHTML = '';
+  document.getElementById('topActions').appendChild(runBtn);
+
+  // Input grid
+  const grid = el('div', { className: 'tool-grid-2' });
+  [['Original', orig], ['Modified', mod]].forEach(([label, ta]) => {
+    const pane = el('div', { className: 'pane' });
+    pane.innerHTML = `<div class="pane-header"><span class="input-label">${label}</span></div>`;
+    const ctr = el('div', { className: 'editor-container' });
+    ctr.appendChild(ta);
+    pane.appendChild(ctr);
+    grid.appendChild(pane);
+  });
+  parent.appendChild(grid);
+
+  // Diff output below
+  const outSection = el('div', { style: 'margin-top:var(--spacing-lg)' });
+  outSection.innerHTML = '<div class="pane-header"><span class="input-label">Diff</span></div>';
+  const cpBtn = btn('Copy Diff', 'btn-secondary');
+  cpBtn.addEventListener('click', () => copy(out.innerText));
+  outSection.querySelector('.pane-header').appendChild(cpBtn);
+  outSection.appendChild(out);
+  parent.appendChild(outSection);
 }
