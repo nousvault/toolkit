@@ -49,6 +49,46 @@ function setupThemeToggle() {
     applyTheme(getPreferredTheme());
 }
 
+function setupMobileSidebar() {
+    const toggle = document.getElementById('sidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+    const backdrop = document.getElementById('sidebarBackdrop');
+    if (!toggle || !sidebar || !backdrop) return;
+
+    const mobileQuery = window.matchMedia('(max-width: 900px)');
+
+    const setOpen = (open) => {
+        document.body.classList.toggle('sidebar-open', open);
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+        backdrop.hidden = !open;
+    };
+
+    const closeIfDesktop = () => {
+        if (!mobileQuery.matches) setOpen(false);
+    };
+
+    toggle.addEventListener('click', () => {
+        setOpen(!document.body.classList.contains('sidebar-open'));
+    });
+
+    backdrop.addEventListener('click', () => setOpen(false));
+
+    document.addEventListener('click', (event) => {
+        if (!mobileQuery.matches) return;
+        if (event.target.closest('.nav-item') || event.target.closest('.tool-card')) {
+            setOpen(false);
+        }
+    });
+
+    window.addEventListener('resize', closeIfDesktop);
+    window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') setOpen(false);
+    });
+
+    closeIfDesktop();
+}
+
 // Registry of tools and their module paths
 const toolsRegistry = {
     'dashboard': {
@@ -150,6 +190,7 @@ async function initApp() {
     const navItems = document.querySelectorAll('.nav-item');
 
     setupThemeToggle();
+    setupMobileSidebar();
 
     // Set up navigation clicks
     navItems.forEach(item => {
