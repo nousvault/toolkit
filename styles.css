@@ -1752,7 +1752,7 @@ textarea::placeholder {
   --muted: #c3c8c3;
   --line: #2e4036;
   --line-strong: #8d928e;
-  --accent: #bfe6c8;
+  --accent: #41d27f;
   --warning: #8b2626;
   --shadow: rgba(0, 0, 0, 0.22);
   --radius: 0px;
@@ -1773,7 +1773,7 @@ body {
   overflow: hidden;
   background:
     linear-gradient(180deg, rgba(255,255,255,0.02), transparent 22%),
-    radial-gradient(circle at top left, rgba(191, 230, 200, 0.04), transparent 28%),
+    radial-gradient(circle at top left, rgba(65, 210, 127, 0.05), transparent 28%),
     var(--canvas);
 }
 
@@ -2240,7 +2240,7 @@ textarea:focus,
 }
 
 .diff-line.added {
-  background: rgba(191, 230, 200, 0.08);
+  background: rgba(65, 210, 127, 0.09);
   color: var(--foreground);
 }
 
@@ -2321,7 +2321,7 @@ textarea {
 .nav-item.active,
 .command-result-item.active,
 .nav-item:hover {
-  background: rgba(191, 230, 200, 0.05) !important;
+  background: rgba(65, 210, 127, 0.07) !important;
 }
 
 .dashboard-header p,
@@ -2340,19 +2340,19 @@ textarea {
 }
 
 :root[data-theme='light'] {
-  --canvas: #f4f0e8;
-  --background: #efe8dd;
-  --surface: #f6f1e8;
-  --surface-low: #fbf7f0;
-  --surface-high: #e7ddd1;
-  --surface-strong: #dfd3c3;
-  --foreground: #161d1a;
-  --muted: #47524d;
-  --line: #8d928e;
-  --line-strong: #2e4036;
-  --accent: #3f6653;
-  --warning: #7d2020;
-  --shadow: rgba(0, 0, 0, 0.08);
+  --canvas: #f3ebdc;
+  --background: #161922;
+  --surface: #1c202a;
+  --surface-low: #202531;
+  --surface-high: #272d3a;
+  --surface-strong: #32384a;
+  --foreground: #ebefe8;
+  --muted: #a0a7a4;
+  --line: #343b49;
+  --line-strong: #5d6678;
+  --accent: #41d27f;
+  --warning: #a13a3a;
+  --shadow: rgba(0, 0, 0, 0.16);
   color-scheme: light;
 }
 
