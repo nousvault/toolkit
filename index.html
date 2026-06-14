@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0e1512" />
+    <script>
+      (() => {
+        var t = localStorage.getItem('toolkit-theme') ||
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+      })();
+    </script>
+    <meta name="description" content="NousVault Toolkit — developer utility tools, client-side." />
+    <title>&lt;dev.tool/&gt;</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#">
+        <svg class="brand-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <path class="brand-mark-guide" d="M10 30V10" />
+          <path class="brand-mark-guide" d="M30 30V10" />
+          <path class="brand-mark-core" d="M10 30V10L30 30V10" />
+        </svg>
+        <span>&lt;dev.tool/&gt;</span>
+      </a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle color theme">
+        <span class="theme-toggle-track"><span class="theme-toggle-thumb"></span></span>
+        <span class="theme-toggle-label" data-theme-label>dark</span>
+      </button>
+    </header>
+
+    <div class="app-layout">
+      <aside class="sidebar" data-sidebar>
+        <nav class="tool-nav" data-tool-nav>
+          <!-- rendered by js/main.js -->
+        </nav>
+      </aside>
+      <main class="tool-main" data-tool-main>
+        <section class="tool-dashboard" data-tool-dashboard>
+          <h1>Dashboard</h1>
+          <p class="dashboard-lede">Select a tool from the sidebar to get started.</p>
+          <div class="dashboard-grid" data-tool-cards>
+            <!-- rendered by js/main.js -->
+          </div>
+        </section>
+        <section class="tool-panel" data-tool-panel hidden>
+          <div class="tool-panel-head">
+            <button class="tool-back" type="button" data-tool-back aria-label="Back to dashboard">&larr; back</button>
+            <h2 class="tool-panel-title" data-tool-title></h2>
+          </div>
+          <div class="tool-panel-body" data-tool-body>
+            <!-- tool content rendered here -->
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
