@@ -1773,7 +1773,7 @@ body {
   overflow: hidden;
   background:
     linear-gradient(180deg, rgba(255,255,255,0.02), transparent 22%),
-    radial-gradient(circle at top left, rgba(154, 123, 88, 0.05), transparent 28%),
+    radial-gradient(circle at top left, rgba(43, 213, 141, 0.05), transparent 28%),
     var(--canvas);
 }
 
@@ -2240,7 +2240,7 @@ textarea:focus,
 }
 
 .diff-line.added {
-  background: rgba(154, 123, 88, 0.09);
+  background: rgba(43, 213, 141, 0.09);
   color: var(--foreground);
 }
 
@@ -2321,7 +2321,7 @@ textarea {
 .nav-item.active,
 .command-result-item.active,
 .nav-item:hover {
-  background: rgba(154, 123, 88, 0.07) !important;
+  background: rgba(43, 213, 141, 0.07) !important;
 }
 
 .dashboard-header p,
@@ -2340,19 +2340,19 @@ textarea {
 }
 
 :root[data-theme='light'] {
-  --canvas: #f3ebdc;
-  --background: #161922;
-  --surface: #1c202a;
-  --surface-low: #202531;
-  --surface-high: #272d3a;
-  --surface-strong: #32384a;
-  --foreground: #ebefe8;
-  --muted: #a0a7a4;
-  --line: #343b49;
-  --line-strong: #5d6678;
-  --accent: #9a7b58;
+  --canvas: #f1e7d7;
+  --background: #11161c;
+  --surface: #161b22;
+  --surface-low: #1b212a;
+  --surface-high: #202734;
+  --surface-strong: #2a3341;
+  --foreground: #e5e1d8;
+  --muted: #8b918c;
+  --line: #2b3440;
+  --line-strong: #515b69;
+  --accent: #2bd58d;
   --warning: #a13a3a;
-  --shadow: rgba(0, 0, 0, 0.16);
+  --shadow: rgba(0, 0, 0, 0.18);
   color-scheme: light;
 }
 
