@@ -2397,6 +2397,24 @@ textarea {
   --accent: #5f463b;
   --warning: #7d2020;
   --shadow: rgba(0, 0, 0, 0.08);
+
+  /* legacy variable overrides for light mode */
+  --bg-base: #f4f0e8;
+  --bg-main: #f4f0e8;
+  --bg-surface: #f6f1e8;
+  --bg-elevated: #efe8dd;
+  --border-subtle: #e0d8c8;
+  --border-strong: #8d928e;
+  --text-primary: #161d1a;
+  --text-secondary: #47524d;
+  --text-placeholder: #8d928e;
+  --text-on-color: #fbf7f0;
+  --focus-ring: 0 0 0 2px #fbf7f0, 0 0 0 4px #5f463b;
+  --brand-primary: #5f463b;
+  --brand-primary-hover: #4a362d;
+  --status-error-bg: #fdf0f0;
+  --status-success-bg: #f0faf5;
+
   color-scheme: light;
 }
 
