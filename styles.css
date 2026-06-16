@@ -1,28 +1,40 @@
 :root {
-    /* Soft Midnight Palette (Inspired by Reference) */
-    --bg-base: #0d1117;
-    --bg-main: var(--bg-base);
-    --bg-surface: #161b22;
-    --bg-elevated: #21262d;
-    --border-subtle: #21262d;
-    --border-strong: #30363d;
+    /* Soft Midnight Palette (NousVault) */
+    --canvas: #0b120f;
+    --background: #0e1512;
+    --surface: #111c17;
+    --surface-low: #161d1a;
+    --surface-high: #242c28;
+    --surface-strong: #2f3633;
+    --foreground: #e2efe7;
+    --muted: #c3c8c3;
+    --line: #2e4036;
+    --line-strong: #8d928e;
+    --accent: #f5ddd8;
+    --warning: #8b2626;
+    --shadow: rgba(0, 0, 0, 0.22);
 
-    --text-primary: #f0f6fc;
-    --text-secondary: #8b949e;
-    --text-placeholder: #484f58;
-    --text-on-color: #ffffff;
-
-    --brand-primary: #2ccb7d;
-    --brand-primary-hover: #23a364;
-    --brand-active: #1a7a4a;
+    --bg-base: var(--canvas);
+    --bg-main: var(--canvas);
+    --bg-surface: var(--surface);
+    --bg-elevated: var(--surface-high);
+    --border-subtle: var(--line);
+    --border-strong: var(--line-strong);
+    --text-primary: var(--foreground);
+    --text-secondary: var(--muted);
+    --text-placeholder: var(--muted);
+    --text-on-color: var(--canvas);
+    --brand-primary: var(--accent);
+    --brand-primary-hover: #e8c5be;
+    --brand-active: #d4a99f;
+    --status-error-bg: var(--canvas);
+    --status-success-bg: var(--canvas);
 
     --status-error: #f85149;
-    --status-error-bg: #211515;
-    --status-success: #2ccb7d;
-    --status-success-bg: #15211b;
+    --status-success: #4ade80;
     --status-warning: #d29922;
 
-    --focus-ring: 0 0 0 2px var(--bg-base), 0 0 0 4px var(--brand-primary);
+    --focus-ring: 0 0 0 2px var(--canvas), 0 0 0 4px var(--accent);
 
     /* Typography */
     --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -2380,6 +2392,37 @@ textarea {
 
 
 :root[data-theme='dark'] {
+  --canvas: #0b120f;
+  --background: #0e1512;
+  --surface: #111c17;
+  --surface-low: #161d1a;
+  --surface-high: #242c28;
+  --surface-strong: #2f3633;
+  --foreground: #e2efe7;
+  --muted: #c3c8c3;
+  --line: #2e4036;
+  --line-strong: #8d928e;
+  --accent: #f5ddd8;
+  --warning: #8b2626;
+  --shadow: rgba(0, 0, 0, 0.22);
+
+  /* legacy overrides for dark mode */
+  --bg-base: var(--canvas);
+  --bg-main: var(--canvas);
+  --bg-surface: var(--surface);
+  --bg-elevated: var(--surface-high);
+  --border-subtle: var(--line);
+  --border-strong: var(--line-strong);
+  --text-primary: var(--foreground);
+  --text-secondary: var(--muted);
+  --text-placeholder: var(--muted);
+  --text-on-color: #0b120f;
+  --brand-primary: var(--accent);
+  --brand-primary-hover: #e8c5be;
+  --brand-active: #d4a99f;
+  --focus-ring: 0 0 0 2px var(--canvas), 0 0 0 4px var(--accent);
+  --status-error-bg: var(--canvas);
+  --status-success-bg: var(--canvas);
   color-scheme: dark;
 }
 
