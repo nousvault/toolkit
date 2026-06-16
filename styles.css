@@ -85,15 +85,42 @@ h4 {
     border-bottom: 1px solid var(--border-subtle);
 }
 
-.sidebar-header h2 {
-    font-size: 1.25rem;
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+}
+
+.brand-logo {
+    width: 1.5rem;
+    height: auto;
+    flex: none;
+    color: var(--text-primary);
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.brand-name {
+    font-family: 'Inter', sans-serif;
     font-weight: 700;
+    font-size: 0.95rem;
     letter-spacing: -0.02em;
     color: var(--text-primary);
 }
 
-.highlight {
-    color: var(--brand-primary);
+.brand-by {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    opacity: 0.6;
 }
 
 .sidebar-nav {
