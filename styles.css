@@ -214,6 +214,7 @@ h4 {
     display: flex;
     flex-direction: column;
     min-width: 0;
+    overflow-y: auto;
     /* Important for deeply nested flex/grids */
 }
 
@@ -243,6 +244,38 @@ h4 {
 .seo-intro a {
     color: var(--brand-primary);
     text-underline-offset: 2px;
+}
+
+.tool-landing {
+    margin: 0 24px 24px;
+    display: grid;
+    gap: 16px;
+}
+
+.tool-landing-header,
+.tool-landing-card {
+    padding: 18px 20px;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    background: var(--bg-surface);
+}
+
+.tool-landing-header h2,
+.tool-landing-card h3 {
+    margin: 0 0 10px;
+}
+
+.tool-landing-header p,
+.tool-landing-card p {
+    margin: 0 0 10px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.tool-landing-card p:last-child,
+.tool-landing-header p:last-child {
+    margin-bottom: 0;
 }
 
 .top-bar {
