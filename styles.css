@@ -2747,3 +2747,69 @@ textarea {
         font-size: 1rem;
     }
 }
+
+/* ── About page ── */
+.about-page {
+    max-width: 680px;
+    padding: 32px 24px;
+}
+
+.about-title {
+    font-size: 1.4rem;
+    margin: 0 0 12px;
+}
+
+.about-lead {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: 0 0 32px;
+    line-height: 1.6;
+}
+
+.about-section {
+    margin-bottom: 28px;
+}
+
+.about-section h3 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    margin: 0 0 10px;
+}
+
+.about-section p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0 0 8px;
+}
+
+.about-tools-list,
+.about-related-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.about-tools-list li {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border-subtle);
+    line-height: 1.5;
+}
+
+.about-tools-list li:last-child { border-bottom: none; }
+
+.about-related-list li {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    padding: 6px 0;
+    line-height: 1.5;
+}
+
+.about-related-list a {
+    color: var(--brand-primary);
+    text-underline-offset: 2px;
+}
