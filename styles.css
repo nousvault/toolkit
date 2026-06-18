@@ -2511,6 +2511,7 @@ textarea {
   --accent: #5f463b;
   --warning: #7d2020;
   --shadow: rgba(0, 0, 0, 0.08);
+  --text-on-color: #ffffff;
 
   /* legacy variable overrides for light mode */
   --bg-base: #f4f0e8;
