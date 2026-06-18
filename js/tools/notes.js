@@ -95,6 +95,13 @@ export function init(workspace, actionsContainer) {
     window.addEventListener('keydown', handleGlobalKeydown);
 }
 
+export function destroy() {
+    window.removeEventListener('paste', handlePaste);
+    window.removeEventListener('keydown', handleGlobalKeydown);
+    window.removeEventListener('mousemove', handleWindowMouseMove);
+    window.removeEventListener('mouseup', handleWindowMouseUp);
+}
+
 function handleGlobalKeydown(e) {
     if ((e.metaKey || e.ctrlKey) && e.key === 'z') {
         if (undoLastAction()) {
@@ -287,6 +294,30 @@ function undoLastAction() {
     return false;
 }
 
+let isPanning = false;
+let lastMouseX, lastMouseY;
+
+function handleWindowMouseMove(e) {
+    if (!isPanning) return;
+    const activeTab = workspaceData.tabs.find(t => t.id === workspaceData.activeTabId);
+    if (!activeTab) return;
+    activeTab.panX = (activeTab.panX || 0) + (e.clientX - lastMouseX);
+    activeTab.panY = (activeTab.panY || 0) + (e.clientY - lastMouseY);
+    lastMouseX = e.clientX;
+    lastMouseY = e.clientY;
+    applyTransform();
+    updateMinimap();
+}
+
+function handleWindowMouseUp() {
+    if (isPanning) {
+        isPanning = false;
+        const canvas = document.getElementById('notesCanvas');
+        if (canvas) canvas.style.cursor = 'crosshair';
+        saveData();
+    }
+}
+
 function setupCanvasInteractions() {
     const canvas = document.getElementById('notesCanvas');
     const layer = document.getElementById('notesTransformLayer');
@@ -328,9 +359,6 @@ function setupCanvasInteractions() {
     canvas.addEventListener('gestureend', (e) => e.preventDefault());
 
     // Panning with drag (requires Space or Middle Click)
-    let isPanning = false;
-    let lastMouseX, lastMouseY;
-
     canvas.addEventListener('mousedown', (e) => {
         if (e.button === 1 || (e.button === 0 && e.target === canvas)) {
             isPanning = true;
@@ -340,27 +368,8 @@ function setupCanvasInteractions() {
         }
     });
 
-    window.addEventListener('mousemove', (e) => {
-        if (!isPanning) return;
-        const activeTab = workspaceData.tabs.find(t => t.id === workspaceData.activeTabId);
-        if (!activeTab) return;
-
-        activeTab.panX = (activeTab.panX || 0) + (e.clientX - lastMouseX);
-        activeTab.panY = (activeTab.panY || 0) + (e.clientY - lastMouseY);
-        lastMouseX = e.clientX;
-        lastMouseY = e.clientY;
-
-        applyTransform();
-        updateMinimap();
-    });
-
-    window.addEventListener('mouseup', () => {
-        if (isPanning) {
-            isPanning = false;
-            canvas.style.cursor = 'crosshair';
-            saveData();
-        }
-    });
+    window.addEventListener('mousemove', handleWindowMouseMove);
+    window.addEventListener('mouseup', handleWindowMouseUp);
 
     canvas.addEventListener('mousemove', (e) => {
         const activeTab = workspaceData.tabs.find(t => t.id === workspaceData.activeTabId);
