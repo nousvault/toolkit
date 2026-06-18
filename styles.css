@@ -257,6 +257,10 @@ h4 {
     gap: 16px;
 }
 
+.tool-landing[hidden] {
+    display: none !important;
+}
+
 .tool-landing-header,
 .tool-landing-card {
     padding: 18px 20px;
