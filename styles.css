@@ -23,7 +23,7 @@
     --text-primary: var(--foreground);
     --text-secondary: var(--muted);
     --text-placeholder: var(--muted);
-    --text-on-color: var(--canvas);
+    --text-on-color: #ffffff;
     --brand-primary: var(--accent);
     --brand-primary-hover: #e8c5be;
     --brand-active: #d4a99f;
@@ -2052,7 +2052,7 @@ code, pre, textarea, input[type="text"], input[type="number"], .editor-textarea,
 
 .btn-primary {
   background: var(--accent);
-  color: #0b120f;
+  color: #ffffff;
   border-color: var(--accent);
 }
 
@@ -2441,7 +2441,7 @@ textarea {
 .btn-primary,
 .pill-option.active {
   background: var(--accent) !important;
-  color: #0b120f !important;
+  color: #ffffff !important;
 }
 
 .nav-item.active,
