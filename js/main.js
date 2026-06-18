@@ -244,10 +244,6 @@ async function loadTool(toolId) {
         workspace.innerHTML = '<div class="spinner" style="margin: auto;"></div>';
         actionsContainer.innerHTML = '';
 
-        // Hide SEO landing section when any tool is active
-        const toolLanding = document.querySelector('.tool-landing');
-        if (toolLanding) toolLanding.hidden = toolId !== 'dashboard';
-
         // Clean up previous module if it has a destroy method
         if (currentModule && typeof currentModule.destroy === 'function') {
             currentModule.destroy();
