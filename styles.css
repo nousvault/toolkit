@@ -2486,7 +2486,7 @@ textarea {
   --text-primary: var(--foreground);
   --text-secondary: var(--muted);
   --text-placeholder: #62806d;
-  --text-on-color: #0b120f;
+  --text-on-color: #ffffff;
   --brand-primary: var(--accent);
   --brand-primary-hover: #e8c5be;
   --brand-active: #d4a99f;
