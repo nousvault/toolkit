@@ -189,8 +189,8 @@ export function render() {
 
             .btn-find-diff {
                 background-color: var(--brand-primary);
-                color: var(--text-primary);
-                border: 1.5px solid var(--border-color);
+                color: var(--text-on-color);
+                border: 1.5px solid var(--brand-primary);
                 font-family: inherit;
                 font-size: 1rem;
                 font-weight: 600;
@@ -201,6 +201,7 @@ export function render() {
             }
             .btn-find-diff:hover {
                 background-color: var(--brand-primary-hover);
+                border-color: var(--brand-primary-hover);
             }
             .btn-find-diff:active {
                 transform: scale(0.98);
