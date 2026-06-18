@@ -207,17 +207,32 @@ async function initApp() {
                 navItems.forEach(nav => nav.classList.remove('active'));
                 e.currentTarget.classList.add('active');
 
+                // Update URL hash
+                window.location.hash = toolId;
+
                 // Load tool
                 loadTool(toolId);
             }
         });
     });
 
-    // Load initial tool (Dashboard by default)
-    const initialTool = 'dashboard';
-    const activeItem = document.querySelector(`[data-tool="${initialTool}"]`);
+    // Load tool from hash or default to dashboard
+    const initialTool = window.location.hash.replace('#', '') || 'dashboard';
+    const activeItem = document.querySelector(`[data-tool="${initialTool}"]`) ||
+                       document.querySelector(`[data-tool="dashboard"]`);
     if (activeItem) activeItem.classList.add('active');
-    loadTool(initialTool);
+    loadTool(activeItem?.dataset.tool || 'dashboard');
+
+    // Handle browser back/forward
+    window.addEventListener('hashchange', () => {
+        const toolId = window.location.hash.replace('#', '') || 'dashboard';
+        const item = document.querySelector(`[data-tool="${toolId}"]`);
+        if (item) {
+            navItems.forEach(nav => nav.classList.remove('active'));
+            item.classList.add('active');
+            loadTool(toolId);
+        }
+    });
 
     // Setup command palette
     setupCommandPalette();
