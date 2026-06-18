@@ -218,32 +218,37 @@ h4 {
     /* Important for deeply nested flex/grids */
 }
 
-.seo-intro {
-    margin: 0 24px 20px;
-    padding: 18px 20px;
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-md);
+.site-footer {
+    margin-top: 32px;
+    padding: 20px 24px;
+    border-top: 1px solid var(--border-subtle);
     background: var(--bg-surface);
 }
 
-.seo-intro h2 {
-    margin: 0 0 10px;
-    font-size: 1rem;
+.footer-inner {
+    max-width: 1110px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 24px;
+    align-items: baseline;
 }
 
-.seo-intro p {
-    margin: 0 0 10px;
+.footer-inner p {
+    margin: 0;
+    font-size: 0.78rem;
     color: var(--text-secondary);
-    font-size: 0.9rem;
+    line-height: 1.5;
+    opacity: 0.75;
 }
 
-.seo-intro p:last-child {
-    margin-bottom: 0;
-}
-
-.seo-intro a {
+.footer-links a {
     color: var(--brand-primary);
     text-underline-offset: 2px;
+}
+
+.footer-links a:hover {
+    opacity: 1;
 }
 
 .tool-landing {
